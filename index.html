@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anna Jopek — Global Study Associate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f2444;
+      --navy-mid: #1a3a6e;
+      --teal: #0d9488;
+      --teal-light: #14b8a6;
+      --accent: #f0a500;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --text: #1e293b;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(15,36,68,.08);
+      --shadow-lg: 0 12px 40px rgba(15,36,68,.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-200);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); letter-spacing: .02em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: .875rem; font-weight: 500; color: var(--gray-600); transition: color .2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: var(--teal); color: #fff; padding: .45rem 1.2rem; border-radius: 50px; font-size: .875rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; }
+    .nav-cta:hover { background: var(--navy); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #0e4f6e 100%);
+      position: relative; overflow: hidden;
+      padding: 100px 5% 60px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner { display: flex; align-items: center; gap: 5rem; max-width: 1100px; width: 100%; position: relative; z-index: 1; }
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,.2);
+      padding: 4px;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.4);
+      animation: floatPhoto 4s ease-in-out infinite;
+    }
+    @keyframes floatPhoto { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .hero-photo-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: rgba(255,255,255,.6);
+    }
+    .hero-text { color: #fff; }
+    .hero-tag { display: inline-block; background: rgba(13,148,136,.25); border: 1px solid var(--teal-light); color: var(--teal-light); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .3rem .8rem; border-radius: 50px; margin-bottom: 1rem; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.15; margin-bottom: .75rem; }
+    .hero-text h1 span { color: var(--teal-light); }
+    .hero-text p { font-size: 1.05rem; color: rgba(255,255,255,.75); max-width: 520px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--teal); color: #fff; padding: .7rem 1.8rem; border-radius: 50px; font-size: .95rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; box-shadow: 0 4px 20px rgba(13,148,136,.4); }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,148,136,.5); }
+    .btn-outline { border: 1.5px solid rgba(255,255,255,.4); color: #fff; padding: .7rem 1.8rem; border-radius: 50px; font-size: .95rem; font-weight: 600; text-decoration: none; transition: border-color .2s, background .2s, transform .2s; }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.08); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .4rem; color: rgba(255,255,255,.4); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+    .hero-scroll-dot { width: 6px; height: 6px; background: rgba(255,255,255,.3); border-radius: 50%; animation: scrollBounce 1.5s infinite; }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .section-title span { color: var(--teal); }
+    .divider { width: 56px; height: 3px; background: var(--teal); border-radius: 3px; margin-bottom: 3rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--gray-600); font-size: 1.02rem; margin-bottom: 1.1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .info-card {
+      background: var(--gray-100); border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .info-card:hover { transform: translateX(4px); box-shadow: var(--shadow); }
+    .info-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--teal); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-icon svg { width: 18px; height: 18px; fill: #fff; }
+    .info-card h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); margin-bottom: .2rem; }
+    .info-card p { font-size: .95rem; color: var(--text); font-weight: 500; }
+    .info-card a { color: var(--teal); text-decoration: none; }
+    .info-card a:hover { text-decoration: underline; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--teal), var(--navy-mid)); border-radius: 2px; }
+    .tl-item { position: relative; margin-bottom: 3rem; opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .tl-item.visible { opacity: 1; transform: translateY(0); }
+    .tl-dot { position: absolute; left: -2.45rem; top: .35rem; width: 14px; height: 14px; border-radius: 50%; background: var(--teal); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--teal); }
+    .tl-dot.current { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 2px var(--accent)} 50%{box-shadow:0 0 0 6px rgba(240,165,0,.25)} }
+    .tl-card { background: var(--white); border-radius: var(--radius); padding: 1.8rem 2rem; box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+    .tl-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .6rem; }
+    .tl-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .tl-badge { font-size: .75rem; font-weight: 600; padding: .25rem .75rem; border-radius: 50px; white-space: nowrap; }
+    .tl-badge.current { background: rgba(240,165,0,.12); color: #b45309; }
+    .tl-badge.past { background: var(--gray-100); color: var(--gray-600); }
+    .tl-company { font-size: .9rem; color: var(--teal); font-weight: 500; margin-bottom: 1rem; }
+    .tl-desc { font-size: .9rem; color: var(--gray-600); margin-bottom: .8rem; }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .tl-list li { font-size: .88rem; color: var(--gray-600); display: flex; gap: .6rem; align-items: flex-start; }
+    .tl-list li::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); margin-top: .55rem; flex-shrink: 0; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--white); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card {
+      background: var(--gray-100); border-radius: var(--radius); padding: 1.8rem;
+      position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease;
+    }
+    .edu-card.visible { opacity: 1; transform: translateY(0); }
+    .edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--teal), var(--navy-mid)); }
+    .edu-card:hover { box-shadow: var(--shadow-lg); }
+    .edu-degree-type { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); margin-bottom: .4rem; }
+    .edu-degree { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: .3rem; }
+    .edu-school { font-size: .9rem; color: var(--gray-600); margin-bottom: .8rem; }
+    .edu-period { display: inline-block; font-size: .78rem; background: rgba(13,148,136,.1); color: var(--teal); font-weight: 600; padding: .2rem .7rem; border-radius: 50px; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-group { background: var(--white); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow); opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .skill-group.visible { opacity: 1; transform: translateY(0); }
+    .skill-group-title { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+    .skill-group-title svg { width: 16px; height: 16px; fill: var(--teal); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .skill-tag { background: var(--gray-100); color: var(--gray-800); font-size: .82rem; font-weight: 500; padding: .35rem .85rem; border-radius: 50px; transition: background .2s, color .2s, transform .2s; }
+    .skill-tag:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+    .lang-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: .9rem; }
+    .lang-item:last-child { margin-bottom: 0; }
+    .lang-name { font-size: .9rem; font-weight: 600; color: var(--navy); }
+    .lang-level { font-size: .75rem; font-weight: 700; letter-spacing: .08em; color: var(--teal); }
+    .lang-bar { height: 5px; background: var(--gray-200); border-radius: 50px; margin-top: .35rem; overflow: hidden; }
+    .lang-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); transition: width 1.2s cubic-bezier(.4,0,.2,1); width: 0; }
+
+    /* ── COURSES ── */
+    .courses-list { display: flex; flex-direction: column; gap: .75rem; }
+    .course-item { display: flex; gap: .75rem; align-items: flex-start; }
+    .course-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; margin-top: .55rem; }
+    .course-name { font-size: .92rem; font-weight: 600; color: var(--navy); }
+    .course-org { font-size: .8rem; color: var(--gray-400); }
+
+    /* ── HOBBIES ── */
+    .hobby-chips { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .hobby-chip { display: flex; align-items: center; gap: .5rem; background: var(--gray-100); color: var(--gray-800); font-size: .88rem; font-weight: 500; padding: .5rem 1rem; border-radius: 50px; transition: background .2s, transform .2s; }
+    .hobby-chip:hover { background: linear-gradient(135deg, var(--teal), var(--navy-mid)); color: #fff; transform: translateY(-3px); }
+    .hobby-chip span { font-size: 1.1rem; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    #contact .section-label { color: var(--teal-light); }
+    #contact .section-title { color: #fff; }
+    #contact .divider { background: var(--teal-light); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; position: relative; z-index: 1; }
+    .contact-desc { color: rgba(255,255,255,.7); font-size: 1rem; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: .9rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; color: rgba(255,255,255,.85); text-decoration: none; padding: .9rem 1.1rem; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; transition: background .2s, border-color .2s, transform .2s; }
+    .contact-link:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.25); transform: translateX(4px); }
+    .contact-link svg { width: 20px; height: 20px; fill: var(--teal-light); flex-shrink: 0; }
+    .contact-link-text h4 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .15rem; }
+    .contact-link-text p { font-size: .95rem; font-weight: 500; }
+    .contact-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: 2rem; }
+    .contact-card h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #fff; margin-bottom: .5rem; }
+    .contact-card p { color: rgba(255,255,255,.6); font-size: .9rem; margin-bottom: 1.5rem; }
+    .contact-tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .contact-tag { background: rgba(13,148,136,.2); border: 1px solid rgba(13,148,136,.3); color: var(--teal-light); font-size: .8rem; font-weight: 600; padding: .3rem .85rem; border-radius: 50px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 2rem 5%; text-align: center; }
+    footer p { color: rgba(255,255,255,.35); font-size: .82rem; }
+
+    /* ── FADE IN OBSERVER ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { flex-direction: column; text-align: center; gap: 2.5rem; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; }
+      .about-grid, .edu-grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-photo-wrap { width: 180px; height: 180px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 70px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Anna Jopek</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:anna.jopek99@gmail.com" class="nav-cta">Get in Touch</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-photo-wrap">
+      <img src="photo.jpg" alt="Anna Jopek" />
+    </div>
+    <div class="hero-text">
+      <div class="hero-tag">Clinical Operations · Biotech · CRO</div>
+      <h1>Anna <span>Jopek</span></h1>
+      <p>Global Study Associate at AstraZeneca, MSc Biotechnology. Coordinating cross-functional clinical trial delivery with a passion for TMF quality, inspection readiness and great science.</p>
+      <div class="hero-btns">
+        <a href="#experience" class="btn-primary">View Experience</a>
+        <a href="#contact" class="btn-outline">Contact Me</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-dot"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Who I Am</div>
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>I hold a Master's degree in Biotechnology from the Warsaw University of Technology. Since 2022 I have been part of AstraZeneca's clinical operations teams, supporting global studies across multiple therapeutic areas.</p>
+        <p>I started in Global Clinical Solutions, managing CTMS data and resolving operational tickets, before moving into Study Management roles within CVRM and then R&amp;I. Each step deepened my expertise in clinical trial coordination, regulatory compliance (ICH-GCP / AZ SOPs), and cross-functional stakeholder management.</p>
+        <p>Since March 2024, as a GSA in SM R&amp;I, I coordinate Phase 1–3 studies end-to-end — from start-up through close-out — partnering with CROs (Parexel, Alimentiv), vendors (LabCorp, Clario, Cytel), and global study teams to keep every trial on track, inspection-ready and well-documented.</p>
+      </div>
+      <div class="about-cards fade-in">
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:anna.jopek99@gmail.com">anna.jopek99@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+          </div>
+          <div>
+            <h4>Phone</h4>
+            <p><a href="tel:514584194">514 584 194</a></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79zM6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94V9.13H5.5v9.37h2.77z"/></svg>
+          </div>
+          <div>
+            <h4>LinkedIn</h4>
+            <p><a href="https://www.linkedin.com/in/anna-jopek-a5825b205" target="_blank" rel="noopener">Anna Jopek</a></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          </div>
+          <div>
+            <h4>Location</h4>
+            <p>Warsaw, Poland</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Career</div>
+      <h2 class="section-title">Work <span>Experience</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot current"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Global Study Associate — Study Management R&amp;I</div>
+            <div class="tl-badge current">Mar 2024 – Present</div>
+          </div>
+          <div class="tl-company">AstraZeneca · Warsaw</div>
+          <p class="tl-desc">Supporting GSADs and GSMs with selected aspects of clinical trial management in Phase 1, 2 and 3 — internal and outsourced studies — across start-up, maintenance and close-out phases.</p>
+          <ul class="tl-list">
+            <li>Maintenance of study eTMF; verifying quality of study documents</li>
+            <li>Initiated and maintained production of key study documents: TMF Plan, GSMOP, CTA Form, PRF, TORO, Inspection Readiness Checklist; led ICF updates</li>
+            <li>Administrative ownership: Study Training Log, distribution lists, shared mailboxes, system accesses; maintained Q&amp;A Log, Decision, Issue and Risk Logs</li>
+            <li>Prepared and distributed project-related correspondence (agendas, meeting minutes, newsletters, presentations)</li>
+            <li>Direct Vendor Management: CISCRP (Thank You/Unblinding Cards), Cuttsy &amp; Cuttsy (ICF summaries, HCP Referral Guide)</li>
+            <li>Vendor oversight in outsourced study: LabCorp, Clario, Cytel; collaboration with CROs Parexel and Alimentiv</li>
+            <li>PO creation/updates; review of contracts and invoices</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Contractor — Study Management CVRM</div>
+            <div class="tl-badge past">Jun 2023 – Mar 2024</div>
+          </div>
+          <div class="tl-company">AstraZeneca · Warsaw</div>
+          <p class="tl-desc">Supported the Global Study Team by completing delegated study work within the Cardiovascular, Renal &amp; Metabolism therapeutic area.</p>
+          <ul class="tl-list">
+            <li>eTMF management</li>
+            <li>Coordinating Training Matrix</li>
+            <li>Creating Investigator Newsletters</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Contractor — Global Clinical Solutions</div>
+            <div class="tl-badge past">Aug 2022 – Mar 2024</div>
+          </div>
+          <div class="tl-company">AstraZeneca · Warsaw</div>
+          <p class="tl-desc">Supported Global Directory and Outsourced Studies Teams with operational data quality and helpdesk activities.</p>
+          <ul class="tl-list">
+            <li>CTMS data management: personnel &amp; organisation management, activation/deactivation of records</li>
+            <li>Resolving tickets via AskGCS</li>
+            <li>Quality Checks of CTMS data</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Academic Background</div>
+      <h2 class="section-title">Education &amp; <span>Courses</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="edu-grid" style="margin-bottom:3rem">
+      <div class="edu-card">
+        <div class="edu-degree-type">Master of Science</div>
+        <div class="edu-degree">Biotechnology</div>
+        <div class="edu-school">Warsaw University of Technology · Warsaw</div>
+        <div class="edu-period">Feb 2022 – Sep 2023</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree-type">Engineer's Degree</div>
+        <div class="edu-degree">Biotechnology</div>
+        <div class="edu-school">Warsaw University of Technology · Warsaw</div>
+        <div class="edu-period">Oct 2018 – Jan 2022</div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:1.5rem;">Professional Courses</h3>
+      <div class="courses-list">
+        <div class="course-item">
+          <div class="course-dot"></div>
+          <div>
+            <div class="course-name">Clinical Trials</div>
+            <div class="course-org">Education for Business &amp; Science</div>
+          </div>
+        </div>
+        <div class="course-item">
+          <div class="course-dot"></div>
+          <div>
+            <div class="course-name">Basic Principles of Regulatory Affairs</div>
+            <div class="course-org">Education for Business &amp; Science</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Competencies</div>
+      <h2 class="section-title">Skills &amp; <span>Languages</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Core Skills
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Organizational skills</span>
+          <span class="skill-tag">Time management</span>
+          <span class="skill-tag">Collaborative teamwork</span>
+          <span class="skill-tag">Problem solving</span>
+          <span class="skill-tag">Cross-functional coordination</span>
+          <span class="skill-tag">Stakeholder management</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Clinical Operations
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">eTMF management</span>
+          <span class="skill-tag">ICH-GCP</span>
+          <span class="skill-tag">AZ SOPs</span>
+          <span class="skill-tag">CTMS</span>
+          <span class="skill-tag">Inspection readiness</span>
+          <span class="skill-tag">CRO oversight</span>
+          <span class="skill-tag">Vendor management</span>
+          <span class="skill-tag">Phase 1-3 trials</span>
+          <span class="skill-tag">ICF lifecycle</span>
+          <span class="skill-tag">Budget &amp; PO management</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Languages &amp; Hobbies
+        </div>
+        <div>
+          <div class="lang-item">
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="lang-name">Polish</div>
+                <div class="lang-level">Native</div>
+              </div>
+              <div class="lang-bar"><div class="lang-fill" data-width="100%"></div></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="lang-name">English</div>
+                <div class="lang-level">C1 Advanced</div>
+              </div>
+              <div class="lang-bar"><div class="lang-fill" data-width="85%"></div></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="lang-name">Spanish</div>
+                <div class="lang-level">A2 Elementary</div>
+              </div>
+              <div class="lang-bar"><div class="lang-fill" data-width="22%"></div></div>
+            </div>
+          </div>
+          <div style="height:.8rem"></div>
+          <div class="hobby-chips">
+            <div class="hobby-chip"><span>💃</span> Dance</div>
+            <div class="hobby-chip"><span>🎻</span> Violin</div>
+            <div class="hobby-chip"><span>✈️</span> Travel</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Get in <span>Touch</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-desc">I'm open to new opportunities in clinical operations, study management and regulatory affairs. Feel free to reach out via email or LinkedIn.</p>
+        <div class="contact-links">
+          <a href="mailto:anna.jopek99@gmail.com" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <div class="contact-link-text">
+              <h4>Email</h4>
+              <p>anna.jopek99@gmail.com</p>
+            </div>
+          </a>
+          <a href="tel:514584194" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+            <div class="contact-link-text">
+              <h4>Phone</h4>
+              <p>514 584 194</p>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/anna-jopek-a5825b205" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79zM6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94V9.13H5.5v9.37h2.77z"/></svg>
+            <div class="contact-link-text">
+              <h4>LinkedIn</h4>
+              <p>Anna Jopek</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-card fade-in">
+        <h3>Open to Opportunities</h3>
+        <p>Particularly interested in roles involving clinical trial coordination, study management and regulatory operations.</p>
+        <div class="contact-tags">
+          <span class="contact-tag">Clinical Operations</span>
+          <span class="contact-tag">Study Management</span>
+          <span class="contact-tag">Regulatory Affairs</span>
+          <span class="contact-tag">eTMF</span>
+          <span class="contact-tag">CRO Collaboration</span>
+          <span class="contact-tag">Phase 1–3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Anna Jopek · Global Study Associate · Warsaw, Poland</p>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu toggle (simple show/hide)
+  function toggleMobileMenu() {
+    const links = document.querySelector('.nav-links');
+    const cta = document.querySelector('.nav-cta');
+    const isVisible = links.style.display === 'flex';
+    if (isVisible) {
+      links.style.display = '';
+      cta.style.display = '';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#fff;padding:1.5rem 5%;gap:1rem;box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:99;';
+      cta.style.cssText = 'display:inline-block;margin:0 5% 1rem;width:calc(100% - 10%);text-align:center;';
+    }
+  }
+
+  // Intersection Observer for fade-in and timeline
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+          // Animate language bars
+          entry.target.querySelectorAll('.lang-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  // Stagger timeline items
+  document.querySelectorAll('.tl-item').forEach((el, i) => {
+    el.dataset.delay = i * 120;
+    observer.observe(el);
+  });
+
+  // Stagger edu cards
+  document.querySelectorAll('.edu-card').forEach((el, i) => {
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+
+  // Stagger skill groups
+  document.querySelectorAll('.skill-group').forEach((el, i) => {
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+
+  // Observe all .fade-in elements
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu if open
+        document.querySelector('.nav-links').style.display = '';
+        document.querySelector('.nav-cta').style.display = '';
+      }
+    });
+  });
+</script>
+</body>
+</html>
